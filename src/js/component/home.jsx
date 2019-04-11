@@ -1,9 +1,6 @@
 import React from "react";
 import Button from "react-bootstrap";
 
-//include images into your bundle
-
-//create your first component
 export class Home extends React.Component {
 	constructor() {
 		super();
