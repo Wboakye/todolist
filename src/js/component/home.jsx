@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "react-bootstrap";
 
 //include images into your bundle
 
@@ -7,8 +8,8 @@ export class Home extends React.Component {
 	constructor() {
 		super();
 
-		this.onClickPreventDefault = this.onClickPreventDefault.bind(this);
 		this.updateState = this.updateState.bind(this);
+		this.deleteItem = this.deleteItem.bind(this);
 
 		this.state = {
 			todos: [
@@ -18,17 +19,6 @@ export class Home extends React.Component {
 			]
 		};
 	}
-	/*updateState() {
-		let input = document.querySelector(".field");
-		let newState = [this.state.todos];
-		newState.concat([
-			{
-				title: input,
-				done: false,
-				id: Math.floor(Math.random() * 1001)
-			}
-		]);
-	}*/
 
 	updateState(e) {
 		this.setState({
@@ -41,11 +31,13 @@ export class Home extends React.Component {
 			])
 		});
 		this.preventDefault();
-		document.getElementById("placeholder").value = "";
+		document.querySelector(".placeholder").value = "";
 	}
 
-	onClickPreventDefault(e) {
-		e.preventDefault();
+	deleteItem(id) {
+		this.setState({
+			todos: this.state.todos.filter(todo => todo.id != id)
+		});
 	}
 
 	render() {
@@ -53,6 +45,12 @@ export class Home extends React.Component {
 			return (
 				<li className="listItem" key={item.id}>
 					{item.title}
+					<input
+						className="xButton"
+						onClick={() => this.deleteItem(item.id)}
+						type="button"
+						value="X"
+					/>
 				</li>
 			);
 		});
